@@ -26,7 +26,9 @@ vec4 transition_comp(vec2 uv, float progress) {
   for (float t = 0.0; t <= 40.0; t++) {
     float ofs = progress < .5 ? mix(0., t/400., progress * 2.) :
       mix(t/400., 0., (progress-0.5)*2.);
-    color += transition_part(vec2(uv.x, uv.y + ofs), progress);
+    float startOfs = progress < .5 ? mix(0., -0.05, progress * 2.) :
+      mix(-0.05, 0., (progress-0.5)*2.);
+    color += transition_part(vec2(uv.x, uv.y + startOfs + ofs), progress);
     total += 1.0;
   }
   return (color/total);
